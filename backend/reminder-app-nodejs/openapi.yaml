@@ -1,0 +1,124 @@
+openapi: 3.0.0
+info:
+  title: Reminder API
+  version: 1.0.0
+servers:
+  - url: http://localhost:3000
+paths:
+  /reminders:
+    post:
+      summary: Create a new reminder
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                date:
+                  type: string
+                  format: date
+                time:
+                  type: string
+                note:
+                  type: string
+      responses:
+        '201':
+          description: Reminder added successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  id:
+                    type: string
+  /reminders/{username}:
+    get:
+      summary: Get all reminders for a user
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: A list of reminders for the user
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  username:
+                    type: string
+                  reminders:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        date:
+                          type: string
+                          format: date
+                        time:
+                          type: string
+                        note:
+                          type: string
+        '404':
+          description: No reminders found
+  /reminders/{username}/{id}:
+    put:
+      summary: Update a reminder
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                date:
+                  type: string
+                  format: date
+                time:
+                  type: string
+                note:
+                  type: string
+      responses:
+        '200':
+          description: Reminder updated successfully
+        '404':
+          description: Reminder or User not found
+    delete:
+      summary: Delete a reminder
+      parameters:
+        - name: username
+          in: path
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Reminder deleted successfully
+        '404':
+          description: Reminder or User not found

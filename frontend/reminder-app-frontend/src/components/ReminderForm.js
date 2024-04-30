@@ -6,10 +6,12 @@ const ReminderForm = ({ username, refreshReminders }) => {
     const [time, setTime] = useState('');
     const [note, setNote] = useState('');
 
+    const apiUrl = window?.configs?.apiUrl ? window.configs.apiUrl : "/";
+
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('/reminders', {
+            await axios.post(apiUrl+'/reminders', {
                 username,
                 date,
                 time,

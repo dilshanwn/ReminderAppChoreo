@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { Form, FormGroup, Label, Input, Button } from 'reactstrap';
 
 const ReminderForm = ({ username, refreshReminders }) => {
     const [date, setDate] = useState('');
@@ -27,12 +28,21 @@ const ReminderForm = ({ username, refreshReminders }) => {
     };
 
     return (
-        <form onSubmit={handleSubmit}>
-            <input type="date" value={date} onChange={(e) => setDate(e.target.value)} required />
-            <input type="time" value={time} onChange={(e) => setTime(e.target.value)} required />
-            <input type="text" value={note} onChange={(e) => setNote(e.target.value)} placeholder="Enter a note" required />
-            <button type="submit">Add Reminder</button>
-        </form>
+        <Form onSubmit={handleSubmit}>
+            <FormGroup>
+                <Label for="date">Date</Label>
+                <Input type="date" name="date" id="date" value={date} onChange={(e) => setDate(e.target.value)} required />
+            </FormGroup>
+            <FormGroup>
+                <Label for="time">Time</Label>
+                <Input type="time" name="time" id="time" value={time} onChange={(e) => setTime(e.target.value)} required />
+            </FormGroup>
+            <FormGroup>
+                <Label for="note">Note</Label>
+                <Input type="text" name="note" id="note" value={note} onChange={(e) => setNote(e.target.value)} placeholder="Enter a note" required />
+            </FormGroup>
+            <Button type="submit" color="primary">Add Reminder</Button>
+        </Form>
     );
 };
 

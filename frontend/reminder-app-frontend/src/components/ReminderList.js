@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { Card, ListGroup } from 'react-bootstrap';
 
 const ReminderList = ({ username }) => {
     const [reminders, setReminders] = useState([]);
@@ -18,13 +19,16 @@ const ReminderList = ({ username }) => {
     }, [username]);
 
     return (
-        <ul>
-            {reminders.map((reminder) => (
-                <li key={reminder.id}>
-                    {reminder.date} at {reminder.time} - {reminder.note}
-                </li>
-            ))}
-        </ul>
+        <Card>
+            <Card.Header>Reminders</Card.Header>
+            <ListGroup variant="flush">
+                {reminders.map((reminder) => (
+                    <ListGroup.Item key={reminder.id}>
+                        {reminder.date} at {reminder.time} - {reminder.note}
+                    </ListGroup.Item>
+                ))}
+            </ListGroup>
+        </Card>
     );
 };
 
